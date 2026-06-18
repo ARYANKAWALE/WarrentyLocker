@@ -8,6 +8,7 @@ import Register from './Components/Register.jsx';
 import Nutrition from './Components/Nutrition.jsx';
 import NotFound from './Components/NotFound.jsx';
 import Settings from './Components/Settings.jsx';
+import Progress from './Components/Progress.jsx';
 import { AuthProvider } from './Components/AuthContext.jsx';
 import { ThemeProvider } from './Components/ThemeContext.jsx';
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <Content /> },
       { path: 'workout', element: <div>Workout Page</div> },
       { path: 'nutrition', element: <Nutrition/> },
-      { path: 'progress', element: <div>Progress Page</div> },
+      { path: 'progress', element: <Progress/> },
       { path: 'setting', element: <Settings/> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },

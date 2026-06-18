@@ -3,6 +3,7 @@ import connectDB from './database/db.database.js'
 import nutritionRouter from './routes/nutrition.routes.js'
 import userRouter from './routes/user.routes.js'
 import statsRouter from './routes/stats.routes.js'
+import progressRouter from './routes/progress.routes.js'
 
 import dotenv from "dotenv"
 dotenv.config({
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/nutrition', nutritionRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/stats', statsRouter)
+app.use('/api/v1/progress', progressRouter)
 
 // Fallback for unmatched routes (404 Error)
 app.use((req, res, next) => {
