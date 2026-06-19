@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext.jsx";
 import {
   Dumbbell,
@@ -30,11 +30,11 @@ function Hero() {
   };
 
   const navLinks = [
-    { to: "/home", label: "Home", icon: <House size={20} /> },
-    { to: "/workout", label: "Workout", icon: <Dumbbell size={20} /> },
-    { to: "/nutrition", label: "Nutrition", icon: <Apple size={20} /> },
-    { to: "/progress", label: "Progress", icon: <TrendingUp size={20} /> },
-    { to: "/setting", label: "Settings", icon: <Settings size={20} /> },
+    { to: "/home", label: "Home", Icon: House },
+    { to: "/workout", label: "Workout", Icon: Dumbbell },
+    { to: "/nutrition", label: "Nutrition", Icon: Apple },
+    { to: "/progress", label: "Progress", Icon: TrendingUp },
+    { to: "/setting", label: "Settings", Icon: Settings },
   ];
 
   return (
@@ -53,15 +53,25 @@ function Hero() {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
           <ul className="flex flex-row gap-8 items-center text-secondary">
-            {navLinks.map((link) => (
-              <li key={link.to} className="list-none">
-                <Link
-                  to={link.to}
-                  className="relative flex flex-row items-center gap-2 text-base font-semibold hover:text-on-surface pb-1.5 transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:scale-x-0 after:bg-blue-600 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
+            {navLinks.map(({ to, label, Icon }) => (
+              <li key={to} className="list-none">
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `relative flex flex-row items-center gap-2 text-base font-semibold pb-1.5 transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:transition-transform after:duration-300 after:ease-out ${
+                      isActive
+                        ? "text-blue-600 after:scale-x-100 after:bg-blue-600"
+                        : "text-secondary hover:text-on-surface after:scale-x-0 after:bg-blue-600 hover:after:scale-x-100"
+                    }`
+                  }
                 >
-                  {link.icon}
-                  <span>{link.label}</span>
-                </Link>
+                  {({ isActive }) => (
+                    <>
+                      <Icon size={20} className={isActive ? "active-link" : "text-secondary"} />
+                      <span>{label}</span>
+                    </>
+                  )}
+                </NavLink>
               </li>
             ))}
           </ul>
