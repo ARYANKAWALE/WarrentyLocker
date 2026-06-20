@@ -44,10 +44,22 @@ export function AuthProvider({ children }) {
     localStorage.removeItem(AUTH_STORAGE_KEY);
   };
 
+  // Call this after a successful profile update to keep state + localStorage in sync
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+    const stored = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
+    if (stored) {
+      localStorage.setItem(
+        AUTH_STORAGE_KEY,
+        JSON.stringify({ token: stored.token, user: updatedUser })
+      );
+    }
+  };
+
   const isLoggedIn = !!token && !!user;
 
   return (
-    <AuthContext.Provider value={{ user, token, isLoggedIn, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, token, isLoggedIn, isLoading, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

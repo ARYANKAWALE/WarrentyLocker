@@ -132,9 +132,9 @@ export const loginUser = async (req, res) => {
 
 export const updateProfile = async(req,res)=>{
   try{
-    const {age,gender,weight,height} = req.body
-    
-    if(!age || !gender || !weight || !height){
+    const { username, age, gender, weight, height } = req.body
+
+    if(!username || !age || !gender || !weight || !height){
       return res.status(400).json({
         success: false,
         message: 'Please provide all fields.'
@@ -149,6 +149,7 @@ export const updateProfile = async(req,res)=>{
       })
     }
 
+    user.username = username
     user.age = age
     user.gender = gender
     user.weight = weight
@@ -160,7 +161,16 @@ export const updateProfile = async(req,res)=>{
     res.status(200).json({
       success: true,
       message: 'Profile updated successfully.',
-      user
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        age: user.age,
+        gender: user.gender,
+        weight: user.weight,
+        height: user.height,
+        isProfileUpdated: user.isProfileUpdated
+      }
     })
   }catch(error){
     console.error('Update profile error:', error)
